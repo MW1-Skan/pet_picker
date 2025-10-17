@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.gradient-bg {
+  background-image: linear-gradient(135deg, #c8e7ff 0%, #f6d8ff 100%);
+}

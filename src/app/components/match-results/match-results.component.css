@@ -1,0 +1,15 @@
+.matches-grid {
+  @apply grid gap-6 lg:grid-cols-2;
+}
+
+.match-card {
+  @apply relative overflow-hidden rounded-3xl border border-slate-200 bg-white/90 shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl;
+}
+
+.match-image {
+  @apply aspect-[3/2] w-full object-cover;
+}
+
+.chip {
+  @apply rounded-full px-3 py-1 text-xs font-medium;
+}

@@ -1,0 +1,25 @@
+import { PreferencesFormValue } from '../models/preferences';
+
+export const DEFAULT_PREFERENCES: PreferencesFormValue = {
+  speciesInterest: 'either',
+  householdAdults: 1,
+  householdKids: 'none',
+  otherPets: 'none',
+  housingType: 'apartment',
+  outdoorAccess: 'none',
+  activityLevel: 'moderate',
+  timeAtHome: 'balanced',
+  travelFrequency: 'sometimes',
+  groomingTolerance: 'weekly',
+  sheddingTolerance: 'moderate',
+  allergySensitivity: 'none',
+  budgetComfort: 'average',
+  trainingExperience: 'some-experience',
+  temperamentPreferences: ['affectionate'],
+  companionGoal: 'cozy-companion',
+  sizePreference: 'no-preference',
+  vocalTolerance: 'okay-chatty',
+  wantsHypoallergenic: false,
+  likesOutdoorAdventures: false,
+  prefersLowMaintenance: false,
+};

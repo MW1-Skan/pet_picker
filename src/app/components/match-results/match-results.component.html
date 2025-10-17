@@ -1,0 +1,113 @@
+<section class="space-y-6">
+  <header class="flex flex-wrap items-end justify-between gap-3">
+    <div>
+      <h2 class="text-2xl font-semibold text-slate-900">Your pet matches</h2>
+      @if (matches?.length) {
+        <p class="text-sm text-slate-500">
+          Tailored suggestions based on your latest answers
+          @if (lastUpdated) {
+            <span> · updated {{ lastUpdated | date: 'shortTime' }}</span>
+          }
+        </p>
+      } @else {
+        <p class="text-sm text-slate-500">
+          Complete the questionnaire and tap “Find a pet” to see your top five matches.
+        </p>
+      }
+    </div>
+  </header>
+
+  @if (matches?.length) {
+    <div class="grid gap-6 lg:grid-cols-2">
+      @for (match of matches; track match.breed.id) {
+        <article
+          class="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white/80 shadow-lg shadow-brand-violet/10 transition hover:-translate-y-1 hover:shadow-2xl"
+        >
+          <div class="aspect-[3/2] overflow-hidden bg-slate-100">
+            <img
+              [src]="match.breed.imageUrl"
+              [alt]="match.breed.name + ' photograph'"
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+          <div class="flex flex-col gap-4 p-6">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p class="text-xs uppercase tracking-widest text-brand-teal">
+                  {{ match.breed.species === 'dog' ? 'Dog' : 'Cat' }} · {{ match.breed.size | titlecase }}
+                </p>
+                <h3 class="text-xl font-semibold text-slate-900">
+                  {{ match.breed.name }}
+                </h3>
+              </div>
+              <div class="text-right">
+                <div class="text-xs uppercase tracking-wide text-slate-400">Match score</div>
+                <div class="text-2xl font-semibold text-brand-violet">
+                  {{ match.score | number: '1.0-0' }}
+                </div>
+              </div>
+            </div>
+
+            <p class="text-sm text-slate-600">
+              {{ match.breed.summary }}
+            </p>
+
+            <div class="flex flex-wrap gap-2">
+              <span class="rounded-full bg-brand-violet/10 px-3 py-1 text-xs font-medium text-brand-violet">
+                Energy: {{ match.breed.energyLevel | titlecase }}
+              </span>
+              <span class="rounded-full bg-brand-teal/10 px-3 py-1 text-xs font-medium text-brand-teal">
+                Grooming: {{ match.breed.groomingLevel | titlecase }}
+              </span>
+              <span class="rounded-full bg-slate-900/10 px-3 py-1 text-xs font-medium text-slate-700">
+                Shedding: {{ match.breed.sheddingLevel | titlecase }}
+              </span>
+              @if (match.nearMiss) {
+                <span class="rounded-full bg-amber-400/10 px-3 py-1 text-xs font-medium text-amber-600">
+                  Near match – review care notes
+                </span>
+              }
+              @if (match.breed.hypoallergenic) {
+                <span class="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600">
+                  Hypoallergenic friendly
+                </span>
+              }
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
+              <h4 class="text-sm font-semibold text-slate-900">Why it matches you</h4>
+              <ul class="mt-2 space-y-1 text-sm text-slate-600">
+                @for (reason of match.reasons | slice: 0:3; track reason) {
+                  <li>• {{ reason }}</li>
+                }
+                @if (match.reasons.length > 3) {
+                  <li class="text-xs text-slate-500">
+                    + {{ match.reasons.length - 3 }} more compatibility highlights
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <div class="text-xs text-slate-500">
+              {{ match.breed.description }}
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  } @else {
+    <div
+      class="flex flex-col items-center justify-center rounded-3xl border border-dashed border-brand-violet/40 bg-white/50 px-8 py-16 text-center shadow-inner"
+    >
+      <span class="mb-4 inline-flex items-center justify-center rounded-full bg-brand-violet/10 p-4 text-brand-violet">
+        <span class="text-2xl">🐾</span>
+      </span>
+      <h3 class="text-lg font-semibold text-slate-900">No matches yet</h3>
+      <p class="mt-2 max-w-lg text-sm text-slate-600">
+        Fill out the questionnaire and press <strong>Find a pet</strong>. We’ll generate five tailored suggestions,
+        even if they’re near-misses, so you always have a starting point.
+      </p>
+    </div>
+  }
+</section>
